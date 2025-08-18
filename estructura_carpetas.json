@@ -1,0 +1,33 @@
+{
+  "juridica": [
+    "01. CAC",
+    "02. ESTATUTO/ CONTRATO SOCIAL",
+    "03. ORGANO DE ADMINISTRACION",
+    "04. PODERES",
+    "05. DJTCS",
+    "06. DJBF",
+    "07. DNI",
+    "08. CONSTANCIAS",
+    "09. EE.CC.",
+    "10. MATRIZ DE RIESGO",
+    "11. PERFIL DEL INVERSOR",
+    "12. EE.CC.",
+    "13. PERFIL/OI",
+    "14. OTROS"
+  ],
+  "fisica": [
+    "01. CAC",
+    "02. DNI",
+    "03. CONSTANCIAS",
+    "04. NOSIS",
+    "05. DOCUMENTACION",
+    "06. PERFIL/OI",
+    "07. MATRIZ DE RIESGO",
+    "08. PERFIL DEL INVERSOR",
+    "09. OFICIOS JUDICIALES",
+    "10. OTROS"
+  ],
+  "desconocido": [
+    "OTROS"
+  ]
+}
