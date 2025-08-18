@@ -1,24 +1,32 @@
-# LegajosAutomation
+# 📁 LegajosAutomation
 
-Automatización modular para archivar documentos de clientes, generar resúmenes en Excel y enviar alertas por correo.
+Automatización modular para archivar documentos de clientes, generar resúmenes en Excel y enviar alertas por correo electrónico.
 
-# Estructura
+---
 
-- `main.py`: Ejecuta todo el flujo.
-- `verificacion_seguridad.py`: Verifica entorno y nombres seguros.
-- `estructura_subcarpetas.py`: Carga estructura desde JSON.
-- `archivado_automatico.py`: Mueve archivos según tipo.
-- `generar_resumen_excel.py`: Crea resumen en Excel.
-- `alertas_email.py`: Envía correo con resumen adjunto.
+## ⚙️ Componentes Principales
 
-# Configuración
+| Script                      | Función                                                                 |
+|----------------------------|-------------------------------------------------------------------------|
+| `main.py`                  | Orquestador del flujo completo                                          |
+| `verificacion_seguridad.py`| Verifica entorno, permisos y nombres seguros                            |
+| `estructura_subcarpetas.py`| Carga estructura de carpetas desde archivo JSON                         |
+| `archivado_automatico.py`  | Clasifica y mueve archivos según tipo                                   |
+| `generar_resumen_excel.py` | Genera resumen de archivos en formato Excel                             |
+| `alertas_email.py`         | Envía correo con resumen adjunto                                        |
 
-- `estructura_carpetas.json`: Define subcarpetas por tipo.
-- `resumen_archivo.xlsx`: Archivo generado con el resumen.
-- `logs/`: Carpeta para logs (puede expandirse).
-- `config.json`: (opcional) para parámetros como email, rutas, etc.
+---
 
-# Ejecución
+## 🧩 Archivos de Configuración
+
+- `estructura_carpetas.json`: Define subcarpetas por tipo de documento
+- `config.json` *(opcional)*: Parámetros como rutas, email, y opciones de ejecución
+- `resumen_archivo.xlsx`: Archivo generado con el resumen de documentos
+- `logs/`: Carpeta para registros de ejecución y errores
+
+---
+
+## 🚀 Ejecución
 
 ```bash
 python main.py
