@@ -30,13 +30,13 @@ def actualizar_resumen(resumen_data, excel_path="historial_archivo.xlsx", proteg
     # Agregar registros nuevos
     for fila in resumen_data:
         nueva_fila = [
-            fila.get("fecha_archivo", ""),
-            fila.get("cuenta", ""),
-            fila.get("nombre", ""),
-            fila.get("cuit_cuil", ""),
-            fila.get("tipo_documento", ""),
-            fila.get("archivo", ""),
-            fila.get("destino", ""),
+            fila.get("Fecha_archivo", ""),
+            fila.get("Cuenta", ""),
+            fila.get("Nombre-Razón Social", ""),
+            fila.get("CUIT-CUIL", ""),
+            fila.get("Tipo de documento", ""),
+            fila.get("Subcarpeta", ""),
+            fila.get("Ruta relativa", ""),
             fila.get("hash", "")
         ]
         ws.append(nueva_fila)

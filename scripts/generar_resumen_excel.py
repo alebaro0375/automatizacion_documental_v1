@@ -3,8 +3,8 @@ from openpyxl.styles import Font
 from openpyxl.utils import get_column_letter
 
 ENCABEZADOS = [
-    "Cuenta", "CUIT / CUIL", "Nombre / Razón Social",
-    "Fecha de Archivo", "Tipo de Documento", "Subcarpeta", "Ruta Relativa"
+    "Fecha de Archivo", "Cuenta", "CUIT-CUIL", "Nombre-Razón Social",
+    "Tipo de Documento", "Subcarpeta", "Ruta Relativa"
 ]
 
 def generar_resumen(datos, archivo_excel, ruta_base_alternativa=None):

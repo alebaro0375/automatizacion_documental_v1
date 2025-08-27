@@ -1,0 +1,5 @@
+2025-08-20 17:13:15,811 - Entorno verificado: carpeta de logs creada
+2025-08-20 17:13:15,811 - Dependencias críticas OK
+2025-08-20 18:29:54,204 - Entorno verificado: carpeta de logs creada
+2025-08-20 18:29:54,207 - Dependencias críticas OK
+2025-08-20 18:29:54,207 - No se encontró el registro de hashes: config/hashes_validos.txt

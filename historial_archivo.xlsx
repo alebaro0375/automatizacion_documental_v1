@@ -1,0 +1,12 @@
+[
+  {
+    "timestamp": "2025-08-27 18:26:51",
+    "evento": "Error al enviar alerta: resumen no encontrado",
+    "archivo": null
+  },
+  {
+    "timestamp": "2025-08-27 18:30:37",
+    "evento": "Error al enviar alerta: [WinError 10060] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder",
+    "archivo": "./resumen_archivo.xlsx"
+  }
+]
