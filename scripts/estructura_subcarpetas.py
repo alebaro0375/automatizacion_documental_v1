@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 CONFIG_DIR = BASE_DIR / "config"
 LOG_DIR = BASE_DIR / "logs"
 
-BASE_ARCHIVADO = Path("C:/Legajos/Archivados")
+BASE_ARCHIVADO = Path("Escritorio/Prueba_archivo/Archivados")
 ESTRUCTURA_JSON = CONFIG_DIR / "estructura_carpetas.json"
 EXCEL_CUENTAS = CONFIG_DIR / "datos_comitentes.xlsx"
 LOG_FILE = LOG_DIR / f"estructura_{datetime.now().strftime('%Y%m%d')}.txt"

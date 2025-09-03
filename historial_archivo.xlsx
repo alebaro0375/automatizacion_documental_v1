@@ -8,5 +8,135 @@
     "timestamp": "2025-08-27 18:30:37",
     "evento": "Error al enviar alerta: [WinError 10060] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder",
     "archivo": "./resumen_archivo.xlsx"
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Archivo archivado",
+    "archivo": "180 T. datos comitentes 03-09-2025.xlsx",
+    "cuenta": "180",
+    "categoria": "02. ESTATUTO-CONTRATO SOCIAL",
+    "origen": "C:\\Legajos\\Docupen\\180 T. datos comitentes 03-09-2025.xlsx",
+    "destino": "./Legajos/Archivados\\180\\02. ESTATUTO-CONTRATO SOCIAL\\180 T. datos comitentes 03-09-2025.xlsx",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Archivo archivado",
+    "archivo": "8721 T. CAC 03-09-2025.pdf",
+    "cuenta": "8721",
+    "categoria": "02. ESTATUTO-CONTRATO SOCIAL",
+    "origen": "C:\\Legajos\\Docupen\\8721 T. CAC 03-09-2025.pdf",
+    "destino": "./Legajos/Archivados\\8721\\02. ESTATUTO-CONTRATO SOCIAL\\8721 T. CAC 03-09-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Archivo archivado",
+    "archivo": "8721 T. Captura 11082025 03-09-2025.png",
+    "cuenta": "8721",
+    "categoria": "02. ESTATUTO-CONTRATO SOCIAL",
+    "origen": "C:\\Legajos\\Docupen\\8721 T. Captura 11082025 03-09-2025.png",
+    "destino": "./Legajos/Archivados\\8721\\02. ESTATUTO-CONTRATO SOCIAL\\8721 T. Captura 11082025 03-09-2025.png",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Error al archivar",
+    "archivo": "180 T. datos comitentes 03-09-2025.xlsx",
+    "cuenta": "180",
+    "categoria": "03. CONSTANCIAS",
+    "origen": "C:\\Legajos\\Docupen\\180 T. datos comitentes 03-09-2025.xlsx",
+    "destino": null,
+    "error": "Categoría inválida: 03. CONSTANCIAS"
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Error al archivar",
+    "archivo": "8721 T. CAC 03-09-2025.pdf",
+    "cuenta": "8721",
+    "categoria": "03. CONSTANCIAS",
+    "origen": "C:\\Legajos\\Docupen\\8721 T. CAC 03-09-2025.pdf",
+    "destino": null,
+    "error": "Categoría inválida: 03. CONSTANCIAS"
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Error al archivar",
+    "archivo": "8721 T. Captura 11082025 03-09-2025.png",
+    "cuenta": "8721",
+    "categoria": "03. CONSTANCIAS",
+    "origen": "C:\\Legajos\\Docupen\\8721 T. Captura 11082025 03-09-2025.png",
+    "destino": null,
+    "error": "Categoría inválida: 03. CONSTANCIAS"
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Error al archivar",
+    "archivo": "180 T. datos comitentes 03-09-2025.xlsx",
+    "cuenta": "180",
+    "categoria": "OTROS",
+    "origen": "C:\\Legajos\\Docupen\\180 T. datos comitentes 03-09-2025.xlsx",
+    "destino": null,
+    "error": "Categoría inválida: OTROS"
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Error al archivar",
+    "archivo": "8721 T. CAC 03-09-2025.pdf",
+    "cuenta": "8721",
+    "categoria": "OTROS",
+    "origen": "C:\\Legajos\\Docupen\\8721 T. CAC 03-09-2025.pdf",
+    "destino": null,
+    "error": "Categoría inválida: OTROS"
+  },
+  {
+    "timestamp": "2025-09-03 16:57:57",
+    "evento": "Error al archivar",
+    "archivo": "8721 T. Captura 11082025 03-09-2025.png",
+    "cuenta": "8721",
+    "categoria": "OTROS",
+    "origen": "C:\\Legajos\\Docupen\\8721 T. Captura 11082025 03-09-2025.png",
+    "destino": null,
+    "error": "Categoría inválida: OTROS"
+  },
+  {
+    "timestamp": "2025-09-03 18:07:22",
+    "evento": "Error al archivar",
+    "archivo": "1036 T. CAC.pdf",
+    "cuenta": null,
+    "categoria": null,
+    "origen": "C:\\Legajos\\Docupen\\1036 T. CAC.pdf",
+    "destino": null,
+    "error": "Nombre inválido"
+  },
+  {
+    "timestamp": "2025-09-03 18:07:22",
+    "evento": "Archivo archivado",
+    "archivo": "180 T. DJBF 03-09-2025.xlsx",
+    "cuenta": "180",
+    "categoria": "06. DJBF",
+    "origen": "C:\\Legajos\\Docupen\\180 T. DJBF 03-09-2025.xlsx",
+    "destino": "C:\\Legajos\\180\\06. DJBF\\180 T. DJBF 03-09-2025.xlsx",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-03 18:17:01",
+    "evento": "Error al archivar",
+    "archivo": "1036 T. CAC.pdf",
+    "cuenta": null,
+    "categoria": null,
+    "origen": "C:\\Legajos\\Docupen\\1036 T. CAC.pdf",
+    "destino": null,
+    "error": "Nombre inválido"
+  },
+  {
+    "timestamp": "2025-09-03 18:18:52",
+    "evento": "Archivo archivado",
+    "archivo": "1036 T. CAC 03-09-2025.pdf",
+    "cuenta": "1036",
+    "categoria": "01. CAC",
+    "origen": "C:\\Legajos\\Docupen\\1036 T. CAC 03-09-2025.pdf",
+    "destino": "C:\\Legajos\\1036\\01. CAC\\1036 T. CAC 03-09-2025.pdf",
+    "error": null
   }
 ]

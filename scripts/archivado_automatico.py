@@ -1,132 +1,168 @@
-# Proceso completo de archivado de documentos generados. 
-# Sus funciones están pensadas para ejecutarse como parte de un flujo 
-# automatizado.
-# Tipo de documento: reconoce todo tipo de documento: PDF, JPG, WORD, EXCEL
-# Llamada a: asegura que la estructura de carpetas por cliente/fecha esté 
-# creada correctamente antes de archivar.
-# Validación de nombres y duplicados: evita conflictos por archivos 
-# repetidos o mal nombrados, apoyándose en reglas definidas en el archivo
-# de configuración.
-# Movimiento seguro de archivos: transfiere los archivos desde la carpeta
-# temporal hacia la ubicación final, conservando metadatos clave.
-# Log estructurado: registra cada acción (origen, destino, resultado) en 
-# un archivo controlado para trazabilidad posterior.
-
-
 import os
 import shutil
+import re
+import pandas as pd
+from datetime import datetime
+from pathlib import Path
 
-# --- Subcarpetas válidas por categoría ---
-SUBCARPETAS_VALIDAS = {
-    "01. CAC", "02. ESTATUTO-CONTRATO SOCIAL", "03. ORGANO DE ADMINISTRACION",
-    "04. PODERES", "05. DJTCS", "06. DJBF", "07. DNI", "08. CONSTANCIAS",
-    "09. ESTADOS CONTABLES", "10. MATRIZ DE RIESGO", "11. PERFIL DEL INVERSOR",
-    "12. NOSIS", "13. PERFIL-OI", "14. OTROS"
+# --- Configuración ---
+CARPETA_ORIGEN = Path("C:/Legajos/Docupen")
+BASE_PATH = Path("C:/Legajos")
+EXCEL_CUENTAS = Path("config/cuentas.xlsx")
+ESTRUCTURA_CARPETAS = {
+    "juridica": [
+        "01. CAC", "02. ESTATUTO-CONTRATO SOCIAL", "03. ORGANO DE ADMINISTRACION", "04. PODERES"
+    ],
+    "humana": [
+        "01. CAC", "05. DJTCS", "06. DJBF", "07. DNI", "08. CONSTANCIAS", "09. ESTADOS CONTABLES",
+        "10. MATRIZ DE RIESGO", "11. PERFIL DEL INVERSOR", "12. NOSIS", "13. PERFIL-OI", "14. OTROS"
+    ]
 }
 
-# --- Validación y creación de estructura por número de cuenta ---
-def asegurar_estructura(base_path, nro_cuenta, categoria):
-    carpeta_cuenta = os.path.join(base_path, nro_cuenta)
+# --- Cargar cuentas desde Excel ---
+def cargar_cuentas_desde_excel(ruta_excel="config/cuentas.xlsx"):
+    df = pd.read_excel(ruta_excel)
+    cuentas_dict = {}
 
-    if not os.path.exists(carpeta_cuenta):
-        os.makedirs(carpeta_cuenta)
-        print(f"📁 Carpeta creada para cuenta: {nro_cuenta}")
-        for sub in SUBCARPETAS_VALIDAS:
-            os.makedirs(os.path.join(carpeta_cuenta, sub), exist_ok=True)
-            print(f"📂 Subcarpeta creada: {sub}")
+    for _, row in df.iterrows():
+        cuenta = str(row["Comitente  -Número"]).strip()
+        tipo_raw = str(row["Comitente  -Tipo de Comitente"]).strip().lower()
+
+        if tipo_raw in {"física", "fisica"}:
+            tipo = "humana"
+        elif tipo_raw in {"jurídica", "juridica"}:
+            tipo = "juridica"
+        else:
+            tipo = "humana"
+
+        cuentas_dict[cuenta] = tipo
+
+    return cuentas_dict
+
+# --- Extraer datos desde nombre de archivo ---
+def extraer_datos_desde_nombre(nombre_archivo):
+    nombre_sin_ext = os.path.splitext(nombre_archivo)[0]
+    partes = nombre_sin_ext.strip().split(" ")
+
+    if len(partes) < 4:
+        return None, None, None, None
+
+    nro_cuenta = partes[0]
+    tipo_doc = partes[1].replace(".", "").upper()
+    fecha_raw = partes[-1]
+    nombre_doc = " ".join(partes[2:-1]).strip()
+
+    if re.match(r"\d{2}-\d{2}-\d{4}", fecha_raw):
+        fecha = fecha_raw.replace("-", "")
     else:
-        subcarpeta = os.path.join(carpeta_cuenta, categoria)
-        if not os.path.exists(subcarpeta):
-            os.makedirs(subcarpeta)
-            print(f"📂 Subcarpeta asegurada: {categoria} en cuenta {nro_cuenta}")
+        fecha = datetime.now().strftime("%d%m%Y")
+        print(f"🕒 Fecha asignada automáticamente para '{nombre_archivo}': {fecha}")
 
+    if not nro_cuenta.isdigit():
+        return None, None, None, None
+    if not re.match(r"^(T|C\d+)$", tipo_doc):
+        return None, None, None, None
+    if not re.match(r"^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])\d{4}$", fecha):
+        return None, None, None, None
+
+    return nro_cuenta, tipo_doc, nombre_doc, fecha
+
+# --- Detectar subcarpeta por nombre de documento ---
+def detectar_categoria(nombre_doc, categorias_validas):
+    nombre_doc = nombre_doc.lower()
+    for carpeta in categorias_validas:
+        if carpeta.lower().split(". ")[1] in nombre_doc:
+            return carpeta
+    return None
+
+# --- Crear estructura si no existe ---
+def asegurar_estructura(base_path, nro_cuenta, categorias_validas):
+    carpeta_cuenta = base_path / nro_cuenta
+    if not carpeta_cuenta.exists():
+        carpeta_cuenta.mkdir(parents=True)
+        print(f"📁 Carpeta creada para cuenta: {nro_cuenta}")
+        for sub in categorias_validas:
+            (carpeta_cuenta / sub).mkdir(exist_ok=True)
+            print(f"📂 Subcarpeta creada: {sub}")
     return carpeta_cuenta
 
-# --- Movimiento seguro de archivos con validación por cuenta y categoría ---
-def archivar_documento(ruta_origen, nro_cuenta, categoria, base_path):
-    if categoria not in SUBCARPETAS_VALIDAS:
-        raise ValueError(f"Categoría inválida: {categoria}")
-
-    destino_base = asegurar_estructura(base_path, nro_cuenta)
-    destino_final = os.path.join(destino_base, categoria)
-
-    nombre_archivo = os.path.basename(ruta_origen)
-    ruta_destino = os.path.join(destino_final, nombre_archivo)
-
-    shutil.move(ruta_origen, ruta_destino)
-    return ruta_destino
-
-# --- Extracción de cuenta y categoría desde nombre de archivo ---
-def extraer_datos_desde_nombre(nombre_archivo):
-    partes = nombre_archivo.split("_")
-    if len(partes) < 2:
-        return None, None
-    nro_cuenta = partes[0]
-    categoria_raw = partes[1].split(".")[0].strip().upper()
-    return nro_cuenta, categoria_raw
-
-# --- Flujo principal de archivado automático ---
-def procesar_archivos(estructura):
-    """
-    estructura: dict con claves tipo_cliente (juridica, fisica, desconocido)
-                y valores como listas de categorías válidas
-    """
+# --- Flujo principal ---
+def procesar_archivos():
     resumen = []
-    base_path = "./Legajos/Archivados"
+    cuentas_dict = cargar_cuentas_desde_excel(EXCEL_CUENTAS)
 
-    tipos_soportados = ["PDF", "JPG", "PNG"]  # Ajustar según tus carpetas de origen
+    if not CARPETA_ORIGEN.exists():
+        print("❌ Carpeta de origen no encontrada.")
+        return []
 
-    for tipo_cliente, categorias_validas in estructura.items():
-        for tipo_archivo in tipos_soportados:
-            origen = f"./{tipo_archivo}"
-            if not os.path.exists(origen):
-                continue
+    archivos = list(CARPETA_ORIGEN.glob("*.*"))
+    if not archivos:
+        print("⚠️ No se encontraron archivos en Docupen.")
+        return []
 
-            for archivo in os.listdir(origen):
-                origen_path = os.path.join(origen, archivo)
-                nro_cuenta, categoria_raw = extraer_datos_desde_nombre(archivo)
+    for archivo in archivos:
+        print(f"\n➡️ Procesando: {archivo.name}")
+        nro_cuenta, tipo_doc, nombre_doc, fecha = extraer_datos_desde_nombre(archivo.name)
+        origen_path = str(archivo)
 
-                if not nro_cuenta or not categoria_raw:
-                    resumen.append({
-                        "archivo": archivo,
-                        "origen": origen_path,
-                        "error": "Nombre inválido",
-                        "cuenta": None,
-                        "categoria": None
-                    })
-                    continue
+        if not nro_cuenta or not nombre_doc:
+            print(f"❌ Nombre inválido: {archivo.name}")
+            resumen.append({
+                "archivo": archivo.name,
+                "origen": origen_path,
+                "error": "Nombre inválido",
+                "cuenta": None,
+                "categoria": None
+            })
+            continue
 
-                # Buscar categoría completa que contenga el texto
-                categoria_match = next(
-                    (cat for cat in categorias_validas if categoria_raw in cat.upper()), None
-                )
+        tipo_cliente = cuentas_dict.get(nro_cuenta, "humana")
+        print(f"   Cuenta detectada: {nro_cuenta} | Tipo: {tipo_cliente}")
+        print(f"   Nombre documental: {nombre_doc}")
 
-                if not categoria_match:
-                    resumen.append({
-                        "archivo": archivo,
-                        "origen": origen_path,
-                        "error": f"Categoría '{categoria_raw}' no válida para tipo '{tipo_cliente}'",
-                        "cuenta": nro_cuenta,
-                        "categoria": categoria_raw
-                    })
-                    continue
+        categorias_validas = ESTRUCTURA_CARPETAS.get(tipo_cliente, [])
+        categoria_match = detectar_categoria(nombre_doc, categorias_validas)
+        print(f"   Categoría detectada: {categoria_match if categoria_match else '❌ No detectada'}")
 
-                try:
-                    destino_path = archivar_documento(origen_path, nro_cuenta, categoria_match, base_path)
-                    resumen.append({
-                        "archivo": archivo,
-                        "origen": origen_path,
-                        "destino": destino_path,
-                        "cuenta": nro_cuenta,
-                        "categoria": categoria_match
-                    })
-                except Exception as e:
-                    resumen.append({
-                        "archivo": archivo,
-                        "origen": origen_path,
-                        "error": str(e),
-                        "cuenta": nro_cuenta,
-                        "categoria": categoria_match
-                    })
+        if not categoria_match:
+            resumen.append({
+                "archivo": archivo.name,
+                "origen": origen_path,
+                "error": f"No se detectó categoría para '{nombre_doc}'",
+                "cuenta": nro_cuenta,
+                "categoria": None
+            })
+            continue
+
+        carpeta_cuenta = asegurar_estructura(BASE_PATH, nro_cuenta, categorias_validas)
+        destino_final = carpeta_cuenta / categoria_match / archivo.name
+
+        try:
+            shutil.move(str(archivo), str(destino_final))
+            print(f"📦 Movido: {archivo.name} → {categoria_match}")
+        except Exception as e:
+            print(f"❌ Error al mover {archivo.name}: {e}")
+            resumen.append({
+                "archivo": archivo.name,
+                "origen": origen_path,
+                "error": str(e),
+                "cuenta": nro_cuenta,
+                "categoria": categoria_match
+            })
+            continue
+
+        resumen.append({
+            "archivo": archivo.name,
+            "origen": origen_path,
+            "destino": str(destino_final),
+            "cuenta": nro_cuenta,
+            "categoria": categoria_match,
+            "fecha": fecha
+        })
 
     return resumen
+
+# --- Ejecución directa ---
+if __name__ == "__main__":
+    resumen = procesar_archivos()
+    print(f"\n✅ Archivos procesados: {len(resumen)}")

@@ -1,0 +1,37 @@
+2025-09-03 15:22:48,817 - Entorno verificado: carpeta de logs creada
+2025-09-03 15:22:48,817 - Dependencias críticas OK
+2025-09-03 15:22:48,817 - No se encontró el registro de hashes: config/hashes_validos.txt
+2025-09-03 15:37:38,487 - Entorno verificado: carpeta de logs creada
+2025-09-03 15:37:38,487 - Dependencias críticas OK
+2025-09-03 15:37:38,487 - No se encontró el registro de hashes: config/hashes_validos.txt
+2025-09-03 15:39:31,215 - Entorno verificado: carpeta de logs creada
+2025-09-03 15:39:31,215 - Dependencias críticas OK
+2025-09-03 15:39:31,216 - No se encontró el registro de hashes: config/hashes_validos.txt
+2025-09-03 15:50:27,987 - Entorno verificado: carpeta de logs creada
+2025-09-03 15:50:27,987 - Dependencias críticas OK
+2025-09-03 15:50:27,988 - No se encontró el registro de hashes: config/hashes_validos.txt
+2025-09-03 15:53:35,635 - Entorno verificado: carpeta de logs creada
+2025-09-03 15:53:35,635 - Dependencias críticas OK
+2025-09-03 15:53:35,636 - No se encontró el registro de hashes: config/hashes_validos.txt
+2025-09-03 15:56:10,370 - Entorno verificado: carpeta de logs creada
+2025-09-03 15:56:10,370 - Dependencias críticas OK
+2025-09-03 15:56:10,371 - No se encontró el registro de hashes: config/hashes_validos.txt
+2025-09-03 16:02:30,412 - Entorno verificado: carpeta de logs creada
+2025-09-03 16:02:30,413 - Dependencias críticas OK
+2025-09-03 16:02:30,413 - No se encontró el registro de hashes: config/hashes_validos.txt
+2025-09-03 16:49:40,997 - \U0001f50d Iniciando verificación de archivado automático post-ejecución
+2025-09-03 16:49:40,999 - Error al archivar: 180 T. datos comitentes 03-09-2025.xlsx \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:49:40,999 - Error al archivar: 8721 T. CAC 03-09-2025.pdf \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:49:40,999 - Error al archivar: 8721 T. Captura 11082025 03-09-2025.png \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:49:40,999 - Error al archivar: 180 T. datos comitentes 03-09-2025.xlsx \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:49:40,999 - Error al archivar: 8721 T. CAC 03-09-2025.pdf \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:49:40,999 - Error al archivar: 8721 T. Captura 11082025 03-09-2025.png \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:49:40,999 - Error al archivar: 180 T. datos comitentes 03-09-2025.xlsx \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:49:40,999 - Error al archivar: 8721 T. CAC 03-09-2025.pdf \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:49:40,999 - Error al archivar: 8721 T. Captura 11082025 03-09-2025.png \u2192 Nombre inválido (Cuenta: None, Categoría: None)
+2025-09-03 16:57:56,985 - Entorno verificado: carpeta de logs creada
+2025-09-03 16:57:56,985 - Dependencias críticas OK
+2025-09-03 16:57:56,986 - No se encontró el registro de hashes: config/hashes_validos.txt
+2025-09-03 18:02:21,925 - Entorno verificado: carpeta de logs creada
+2025-09-03 18:02:21,926 - Dependencias críticas OK
+2025-09-03 18:02:21,926 - No se encontró el registro de hashes: config/hashes_validos.txt
