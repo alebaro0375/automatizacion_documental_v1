@@ -1,7 +1,7 @@
-# 📘 Automatización Documental V1
+# 📘 Automatización Documental V1  
 Sistema modular para el archivado automático, validación técnica y trazabilidad de documentos por cliente y categoría. Diseñado para garantizar robustez, claridad y cumplimiento normativo en entornos documentales exigentes.
 
-## 🚀 Objetivo del sistema
+## 🚀 Objetivo del sistema  
 - Clasificar y archivar documentos por número de cuenta y categoría  
 - Validar rutas, permisos y configuración antes de ejecutar  
 - Renombrar automáticamente según nomenclatura oficial  
@@ -9,7 +9,7 @@ Sistema modular para el archivado automático, validación técnica y trazabilid
 - Enviar alertas automáticas por email con adjuntos  
 - Blindar el sistema contra errores silenciosos y asegurar trazabilidad total  
 
-## 🧩 Estructura del proyecto
+## 🧩 Estructura del proyecto  
 automatizacion_documental_v1/  
 ├── config/                  # Archivos de configuración (.ini, .json)  
 ├── logs/                   # Registro estructurado de eventos  
@@ -21,7 +21,7 @@ automatizacion_documental_v1/
 ├── test_main.py            # Tests unificados  
 └── README.md               # Documentación  
 
-## ⚙️ Módulos principales
+## ⚙️ Módulos principales  
 | Módulo                        | Función |
 |------------------------------|---------|
 | `config_loader.py`           | Carga y valida `config.ini` |
@@ -36,68 +36,56 @@ automatizacion_documental_v1/
 | `historial_archivo.py`       | Registra eventos en historial |
 | `alertas_email.py`           | Envía alertas con adjunto |
 
-## 🧪 Ejecución del sistema
-python scripts/verificar_resultados.py  
-Este script realiza:  
-1. Renombrado automático de archivos en `Docupen`  
-2. Archivado por cuenta y categoría  
-3. Verificación de estructura y movimientos  
-4. Validación de resumen, historial y log  
-5. Registro técnico en `registro.log`  
-6. Envío de alerta (si está activado)  
+## 🧪 Ejecución del sistema  
+```bash
+python scripts/verificar_resultados.py
 
-## 📦 Ejemplo de estructura esperada
-Legajos/Archivados/  
-└── 8721/  
-  ├── 01. CAC/  
-  ├── 05. DJTCS/  
-  └── ...  
+Este script realiza:
+1. 	Renombrado automático de archivos en 
+2. 	Archivado por cuenta y categoría
+3. 	Verificación de estructura y movimientos
+4. 	Validación de resumen, historial y log
+5. 	Registro técnico en 
+6. 	Envío de alerta (si está activado)
+📦 Ejemplo de estructura esperada
+Legajos/Archivados/
+└── 8721/
+├── 01. CAC/
+├── 05. DJTCS/
+└── ...
+🧠 Ejemplo de nombre válido
+8721 T. CAC 03-09-2025.pdf
+Se interpreta como:
+• 	Cuenta: 
+• 	Tipo: 
+• 	Nombre: 
+• 	Fecha:  → convertida internamente a 
+📬 Envío de alertas
+• 	Activar en  → 
+• 	Definir destinatario → 
+🔐 Seguridad
+• 	Validación de entorno (Python 3.8+)
+• 	Verificación de dependencia
+• 	Validación de hash SHA-256 para archivos críticos   
+🧪 Tests
+Cubre:
+• 	Configuración
+• 	Permisos
+• 	Estructura
+• 	Logging
+• 	Historial
+• 	Hash
+• 	Flujo completo
+📊 Verificación post-ejecución
+Usar  para validar:
+• 	Renombrado automático aplicado
+• 	Estructura de carpetas creada
+• 	Archivos movidos correctamente
+• 	Resumen generado
+• 	Historial actualizado
+• 	Log técnico generado
+• 	Archivos pendientes detectados
 
-## 🧠 Ejemplo de nombre válido
-8721 T. CAC 03-09-2025.pdf  
-Se interpreta como:  
-- Cuenta: `8721`  
-- Tipo: `T`  
-- Nombre: `CAC`  
-- Fecha: `03-09-2025` → convertida internamente a `03092025`  
-
-## 📬 Envío de alertas
-- Activar en `[EMAIL]` → `activar_alertas = True`  
-- Definir destinatario → `destinatario = ejemplo@dominio.com`  
-
-## 🔐 Seguridad
-- Validación de entorno (Python 3.8+)  
-- Verificación de dependencias (`openpyxl`, `pandas`)  
-- Validación de hash SHA-256 para archivos críticos  
-
-## 🧪 Tests
-python test_main.py  
-Cubre:  
-- Configuración  
-- Permisos  
-- Estructura  
-- Logging  
-- Historial  
-- Hash  
-- Flujo completo  
-
-## 📊 Verificación post-ejecución
-Usar `verificar_resultados.py` para validar:  
-- Renombrado automático aplicado  
-- Estructura de carpetas creada  
-- Archivos movidos correctamente  
-- Resumen generado  
-- Historial actualizado  
-- Log técnico generado  
-- Archivos pendientes detectados  
-
-## 📌 Convenciones de commits
-- `feat:` nueva funcionalidad  
-- `fix:` corrección de bug  
-- `refactor:` mejora interna sin cambiar funcionalidad  
-- `docs:` cambios en documentación  
-- `test:` mejoras o nuevos tests  
-
-## 📝 Autoría
-Desarrollado por Alejandra, con enfoque en automatización robusta, validación modular y trazabilidad documental.  
-Este proyecto está en evolución constante, con mejoras iterativas basadas en pruebas reales y feedback técnico.pytho
+📝 Autoría
+Desarrollado por Alejandra, con enfoque en automatización robusta, validación modular y trazabilidad documental.
+Este proyecto está en evolución constante, con mejoras iterativas basadas en pruebas reales y feedback técnico.
