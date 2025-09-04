@@ -41,33 +41,57 @@ automatizacion_documental_v1/
 python scripts/verificar_resultados.py
 
 Este script realiza:
-1. 	Renombrado automático de archivos en 
-2. 	Archivado por cuenta y categoría
-3. 	Verificación de estructura y movimientos
-4. 	Validación de resumen, historial y log
-5. 	Registro técnico en 
-6. 	Envío de alerta (si está activado)
-📦 Ejemplo de estructura esperada
-Legajos/Archivados/
-└── 8721/
-├── 01. CAC/
-├── 05. DJTCS/
-└── ...
+- Renombrado automático de archivos en Docupen
+- Archivado por cuenta y categoría
+- Verificación de estructura y movimientos
+- Validación de resumen, historial y log
+- Registro técnico en registro.log
+- Envío de alerta (si está activado)
+
+Ejemplo de estructura esperada
+Legajos/
+└── 14959/
+    ├── 01. CAC/
+    ├── 05. DJTCS/
+    ├── 08. CONSTANCIAS/
+    │   ├── SOCIEDAD/
+    │   │   └── 2025/
+    │   │       └── 08.- 14959 CUIT SOCIEDAD 04-09-2025.pdf
+    │   ├── REPRESENTANTE LEGAL/
+    │   │   └── 2025/
+    │   │       └── 08.- 14959 CUIT RL 04-09-2025.pdf
+    │   ├── BENEFICIARIOS FINALES/
+    │   │   └── 2025/
+    │   │       └── 08.- 14959 CUIT BF JUAN PEREZ 04-09-2025.pdf
+
+  🧠 Lógica documental
+Archivado por prefijo numérico
+El sistema detecta el número de subcarpeta directamente desde el nombre del archivo (ej. , ) y lo utiliza para determinar la carpeta de destino dentro de la cuenta. Si el prefijo es , se activa una lógica especial para constancias.
+Archivado especial para 
+• 	Detecta si el documento corresponde a SOCIEDAD, REPRESENTANTE LEGAL o BENEFICIARIO FINAL
+• 	Extrae el año desde la fecha del archivo
+• 	Crea subcarpetas por tipo y año si no existen
+• 	Mueve el archivo al destino correspondiente con trazabilidad
+
 🧠 Ejemplo de nombre válido
-8721 T. CAC 03-09-2025.pdf
+08.- 14959 CUIT BF JUAN PEREZ 04-09-2025.pdf
 Se interpreta como:
-• 	Cuenta: 
-• 	Tipo: 
-• 	Nombre: 
-• 	Fecha:  → convertida internamente a 
+• 	Prefijo: 08. → activa lógica de constancias
+• 	Cuenta: 14959
+• 	Tipo documental: CUIT BF JUAN PEREZ 
+• 	Fecha: 04-09-2025 → convertida internamente a 04092025
+• 	Subcarpeta destino: 08.CONSTANCIAS/BENEFICIARIOS FINALES/2025
+
 📬 Envío de alertas
 • 	Activar en  → 
 • 	Definir destinatario → 
 🔐 Seguridad
 • 	Validación de entorno (Python 3.8+)
-• 	Verificación de dependencia
-• 	Validación de hash SHA-256 para archivos críticos   
+• 	Verificación de dependencias (, )
+• 	Validación de hash SHA-256 para archivos críticos
 🧪 Tests
+python test_main.py
+
 Cubre:
 • 	Configuración
 • 	Permisos
@@ -76,16 +100,29 @@ Cubre:
 • 	Historial
 • 	Hash
 • 	Flujo completo
+
 📊 Verificación post-ejecución
-Usar  para validar:
-• 	Renombrado automático aplicado
-• 	Estructura de carpetas creada
-• 	Archivos movidos correctamente
-• 	Resumen generado
-• 	Historial actualizado
-• 	Log técnico generado
-• 	Archivos pendientes detectados
+Usar verificar_resultados.py para validar:
+- Renombrado automático aplicado
+- Estructura de carpetas creada
+- Archivos movidos correctamente
+- Resumen generado
+- Historial actualizado
+- Log técnico generado
+- Archivos pendientes detectados
+
+📌 Convenciones de commits
+• 	 nueva funcionalidad
+• 	 corrección de bug
+• 	 mejora interna sin cambiar funcionalidad
+• 	 cambios en documentación
+• 	 mejoras o nuevos tests
 
 📝 Autoría
 Desarrollado por Alejandra, con enfoque en automatización robusta, validación modular y trazabilidad documental.
+
 Este proyecto está en evolución constante, con mejoras iterativas basadas en pruebas reales y feedback técnico.
+
+
+
+
