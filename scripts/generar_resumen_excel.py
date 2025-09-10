@@ -4,7 +4,7 @@ from openpyxl.utils import get_column_letter
 
 ENCABEZADOS = [
     "Fecha de Archivo", "Cuenta", "CUIT-CUIL", "Nombre-Razón Social",
-    "Tipo de Documento", "Subcarpeta", "Ruta Relativa"
+    "Tipo de Documento", "Subcarpeta", "Ruta Relativa", "Hash", "Estado"
 ]
 
 def generar_resumen(datos, archivo_excel, ruta_base_alternativa=None):
@@ -19,24 +19,32 @@ def generar_resumen(datos, archivo_excel, ruta_base_alternativa=None):
 
     # Agregar filas con hipervínculos
     for fila in datos:
-        ruta_relativa = fila["ruta_relativa"]
+        ruta_relativa = fila.get("ruta_relativa", "")
         ruta_completa = (
             ruta_base_alternativa.rstrip("/") + "/" + ruta_relativa.replace("\\", "/")
             if ruta_base_alternativa else ruta_relativa
         )
 
+        estado = (
+            "Archivado" if fila.get("destino") and not fila.get("error")
+            else "Duplicado" if fila.get("error") == "Duplicado por hash"
+            else "Error"
+        )
+
         nueva_fila = [
-            fila["cuenta"],
-            fila["cuit_cuil"],
-            fila["nombre"],
-            fila["fecha_archivo"],
-            fila["tipo_documento"],
-            fila["subcarpeta"],
-            ruta_relativa  # texto visible
+            fila.get("fecha_archivo", ""),
+            fila.get("cuenta", ""),
+            fila.get("cuit_cuil", ""),
+            fila.get("nombre", ""),
+            fila.get("tipo_documento", ""),
+            fila.get("subcarpeta", ""),
+            ruta_relativa,
+            fila.get("hash", ""),
+            estado
         ]
         ws.append(nueva_fila)
 
-        # Insertar hipervínculo en la última celda
+        # Insertar hipervínculo en la celda de ruta
         celda = ws.cell(row=ws.max_row, column=7)
         celda.hyperlink = ruta_completa
         celda.font = Font(color="0000FF", underline="single")
@@ -46,3 +54,4 @@ def generar_resumen(datos, archivo_excel, ruta_base_alternativa=None):
         ws.column_dimensions[get_column_letter(col)].width = 20
 
     wb.save(archivo_excel)
+    print(f"📊 Resumen Excel generado con hash y estado en: {archivo_excel}")

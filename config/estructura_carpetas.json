@@ -13,7 +13,9 @@
     "11. PERFIL DEL INVERSOR",
     "12. NOSIS",
     "13. PERFIL-OI",
-    "14. OTROS"
+    "14. OTROS",
+    "99. DESCONOCIDO"
+
   ],
   "fisica": [
     "01. CAC",
@@ -25,9 +27,8 @@
     "07. MATRIZ DE RIESGO",
     "08. PERFIL DEL INVERSOR",
     "09. OFICIOS JUDICIALES",
-    "10. OTROS"
-  ],
-  "desconocido": [
-    "OTROS"
+    "10. OTROS", 
+    "99. DESCONOCIDO"
+
   ]
 }

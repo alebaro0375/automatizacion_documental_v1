@@ -1,17 +1,18 @@
-import os
-import shutil
-import re
-import pandas as pd
+# --- Importaciones ---
+import os, shutil, re, pandas as pd
 from datetime import datetime
 from pathlib import Path
 import unicodedata
+
+from scripts.hash_checker import (
+    calcular_hash_archivo, cargar_hashes, guardar_hashes, es_duplicado
+)
 
 # --- Configuración ---
 CARPETA_ORIGEN = Path("C:/Legajos/Docupen")
 BASE_PATH = Path("C:/Legajos")
 EXCEL_CUENTAS = Path("config/cuentas.xlsx")
 
-# --- Estructura por tipo de cliente ---
 ESTRUCTURA_CARPETAS = {
     "humana": [
         "01. CAC","02. DNI","03. CONSTANCIAS","04. NOSIS","05. DOCUMENTACION",
@@ -26,20 +27,17 @@ ESTRUCTURA_CARPETAS = {
     ]
 }
 
-# --- Normalizar texto ---
+# --- Funciones auxiliares ---
 def normalizar(texto):
     return unicodedata.normalize("NFKD", texto).encode("ASCII", "ignore").decode("ASCII").lower().strip()
 
-# --- Cargar cuentas desde Excel ---
 def cargar_cuentas_desde_excel(ruta_excel):
     df = pd.read_excel(ruta_excel)
     cuentas_dict = {}
-
     for _, row in df.iterrows():
         cuenta = str(row["Comitente  -Número"]).strip()
         tipo_raw = str(row["Comitente  -Tipo de Comitente"])
         tipo_normalizado = normalizar(tipo_raw)
-
         if "juridica" in tipo_normalizado:
             tipo = "juridica"
         elif "fisica" in tipo_normalizado:
@@ -47,12 +45,9 @@ def cargar_cuentas_desde_excel(ruta_excel):
         else:
             tipo = "desconocido"
             print(f"⚠️ Tipo no reconocido para cuenta {cuenta}: '{tipo_raw}' → asignado como 'desconocido'")
-
         cuentas_dict[cuenta] = tipo
-
     return cuentas_dict
 
-# --- Extraer datos desde nombre de archivo ---
 def extraer_datos_desde_nombre(nombre_archivo):
     nombre_sin_ext = os.path.splitext(nombre_archivo)[0]
     nombre_sin_ext = re.sub(r"[_\-]", " ", nombre_sin_ext)
@@ -75,12 +70,7 @@ def extraer_datos_desde_nombre(nombre_archivo):
 
     fecha_raw = re.search(r"\d{2}-\d{2}-\d{4}", nombre_sin_ext)
     fecha_raw = fecha_raw.group() if fecha_raw else None
-
-    if fecha_raw:
-        fecha = fecha_raw.replace("-", "")
-    else:
-        fecha = datetime.now().strftime("%d%m%Y")
-        print(f"🕒 Fecha asignada automáticamente para '{nombre_archivo}': {fecha}")
+    fecha = fecha_raw.replace("-", "") if fecha_raw else datetime.now().strftime("%d%m%Y")
 
     if not re.match(r"^(0[1-9]|[12][0-9]|3[01])(0[1-9]|1[0-2])\d{4}$", fecha):
         return None, None, None, None
@@ -99,7 +89,10 @@ def extraer_datos_desde_nombre(nombre_archivo):
 
     return nro_cuenta, tipo_doc, nombre_doc, fecha
 
-# --- Detectar categoría por prefijo ---
+def obtener_prefijo(nombre_archivo):
+    partes = nombre_archivo.split()
+    return partes[0] if partes and (partes[0].endswith(".-") or partes[0].endswith(".")) else None
+
 def detectar_categoria_por_prefijo(prefijo, categorias_validas):
     if not isinstance(prefijo, str):
         return None
@@ -108,25 +101,7 @@ def detectar_categoria_por_prefijo(prefijo, categorias_validas):
             return carpeta
     return None
 
-# --- Extraer prefijo si existe ---
-def obtener_prefijo(nombre_archivo):
-    partes = nombre_archivo.split()
-    return partes[0] if partes and (partes[0].endswith(".-") or partes[0].endswith(".")) else None
-
-# --- Detectar subcategoría especial para CONSTANCIAS ---
-def extraer_subcategoria_constancia(nombre):
-    nombre = nombre.upper()
-    if "SOCIEDAD" in nombre:
-        return "SOCIEDAD"
-    elif "CUIT RL" in nombre or "REPRESENTANTE LEGAL" in nombre:
-        return "REPRESENTANTE LEGAL"
-    elif "CUIT BF" in nombre or "BENEFICIARIO FINAL" in nombre or "BF" in nombre:
-        return "BENEFICIARIOS FINALES"
-    return "OTROS"
-
-# --- Extraer año desde fecha en nombre ---
 def extraer_anio(nombre):
-    nombre = re.sub(r"\s+", " ", nombre).strip()
     match = re.search(r"\d{2}-\d{2}-\d{4}", nombre)
     if match:
         try:
@@ -136,7 +111,21 @@ def extraer_anio(nombre):
             pass
     return "SIN_FECHA"
 
-# --- Crear estructura si no existe ---
+def extraer_subrol_constancia(nombre):
+    nombre = nombre.upper()
+    if "SOCIEDAD" in nombre:
+        return "SOCIEDAD"
+    if re.search(r"CUIT[\s\-_]*RL", nombre) or "REPRESENTANTE LEGAL" in nombre:
+        return "REPRESENTANTE LEGAL"
+    if re.search(r"CUIT[\s\-_]*BF", nombre) or "BENEFICIARIO FINAL" in nombre or re.search(r"\bBF\b", nombre):
+        return "BENEFICIARIOS FINALES"
+    if re.search(r"\bT[\.\s_-]", nombre):
+        return "TITULAR"
+    match = re.search(r"\bC(\d+)(?=[.\s_-])", nombre)
+    if match:
+        return f"COTITULAR {match.group(1)}"
+    return "OTROS"
+ 
 def asegurar_estructura(base_path, nro_cuenta, categorias_validas):
     carpeta_cuenta = base_path / nro_cuenta
     if not carpeta_cuenta.exists():
@@ -160,6 +149,8 @@ def procesar_archivos():
     if not archivos:
         print("⚠️ No se encontraron archivos en Docupen.")
         return []
+
+    hashes_existentes = cargar_hashes()
 
     for archivo in archivos:
         print(f"\n➡️ Procesando: {archivo.name}")
@@ -185,24 +176,35 @@ def procesar_archivos():
         prefijo = obtener_prefijo(archivo.name)
         print(f"🔎 Prefijo detectado: {prefijo}")
         categoria_match = detectar_categoria_por_prefijo(prefijo, categorias_validas)
+        anio = extraer_anio(archivo.name)
+        subrol = extraer_subrol_constancia(nombre_doc)
 
-        # --- Lógica especial para CONSTANCIAS ---
-        if prefijo in {"08.-", "08."} or categoria_match == "08. CONSTANCIAS":
-            subcategoria = extraer_subcategoria_constancia(nombre_doc)
-            anio = extraer_anio(archivo.name)
-            print(f"📅 Año detectado para constancia: {anio}")
-            destino_final = carpeta_cuenta / "08. CONSTANCIAS" / subcategoria / anio
-            destino_final.mkdir(parents=True, exist_ok=True)
-        elif categoria_match:
-            destino_final = carpeta_cuenta / categoria_match
-            destino_final.mkdir(parents=True, exist_ok=True)
+        if categoria_match:
+            destino_final = carpeta_cuenta / categoria_match / subrol / anio
         else:
-            destino_final = carpeta_cuenta / "14. OTROS"
-            destino_final.mkdir(parents=True, exist_ok=True)
+            fallback = "14. OTROS" if tipo_cliente == "juridica" else "10. OTROS"
+            destino_final = carpeta_cuenta / fallback / subrol / anio
+
+        destino_final.mkdir(parents=True, exist_ok=True)
+
+        hash_actual = calcular_hash_archivo(str(archivo))
+        if es_duplicado(hash_actual, hashes_existentes):
+            print(f"🛑 Duplicado detectado por hash: {archivo.name}")
+            resumen.append({
+                "archivo": archivo.name,
+                "origen": origen_path,
+                "error": "Duplicado por hash",
+                "cuenta": nro_cuenta,
+                "categoria": categoria_match,
+                "hash": hash_actual
+            })
+            continue
 
         try:
             shutil.move(str(archivo), str(destino_final / archivo.name))
             print(f"📦 Movido: {archivo.name} → {destino_final}")
+            hashes_existentes[archivo.name] = hash_actual
+            guardar_hashes(hashes_existentes)
         except Exception as e:
             print(f"❌ Error al mover {archivo.name}: {e}")
             resumen.append({
@@ -220,7 +222,12 @@ def procesar_archivos():
             "destino": str(destino_final / archivo.name),
             "cuenta": nro_cuenta,
             "categoria": categoria_match,
-            "fecha": fecha
+            "tipo_cliente": tipo_cliente,
+            "tipo_doc": tipo_doc,
+            "subrol": subrol,
+            "fecha": fecha,
+            "anio": anio,
+            "hash": hash_actual
         })
 
     return resumen

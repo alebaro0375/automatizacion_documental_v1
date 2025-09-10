@@ -1188,5 +1188,135 @@
     "origen": "C:\\Legajos\\Docupen\\01.14959 CAC 13-03-2025.pdf",
     "destino": "C:\\Legajos\\14959\\14. OTROS\\01.14959 CAC 13-03-2025.pdf",
     "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "01.14959 CAC 13-03-2025.pdf",
+    "cuenta": "14959",
+    "categoria": null,
+    "origen": "C:\\Legajos\\Docupen\\01.14959 CAC 13-03-2025.pdf",
+    "destino": "C:\\Legajos\\14959\\14. OTROS\\01.14959 CAC 13-03-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "02. 14959 Estatuto - Austral Gomas SRL - 09.2023 .pdf",
+    "cuenta": "14959",
+    "categoria": "02. ESTATUTO-CONTRATO SOCIAL",
+    "origen": "C:\\Legajos\\Docupen\\02. 14959 Estatuto - Austral Gomas SRL - 09.2023 .pdf",
+    "destino": "C:\\Legajos\\14959\\02. ESTATUTO-CONTRATO SOCIAL\\02. 14959 Estatuto - Austral Gomas SRL - 09.2023 .pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "03. 7560 C1. RePET 19-09-2023.pdf",
+    "cuenta": "7560",
+    "categoria": "03. CONSTANCIAS",
+    "origen": "C:\\Legajos\\Docupen\\03. 7560 C1. RePET 19-09-2023.pdf",
+    "destino": "C:\\Legajos\\7560\\03. CONSTANCIAS\\03. 7560 C1. RePET 19-09-2023.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "03. 7560 T CUIT 19-09-2023.pdf",
+    "cuenta": "7560",
+    "categoria": "03. CONSTANCIAS",
+    "origen": "C:\\Legajos\\Docupen\\03. 7560 T CUIT 19-09-2023.pdf",
+    "destino": "C:\\Legajos\\7560\\03. CONSTANCIAS\\03. 7560 T CUIT 19-09-2023.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "04. 7560_T._NOSIS_14-08-2025.pdf",
+    "cuenta": "7560",
+    "categoria": "04. NOSIS",
+    "origen": "C:\\Legajos\\Docupen\\04. 7560_T._NOSIS_14-08-2025.pdf",
+    "destino": "C:\\Legajos\\7560\\04. NOSIS\\04. 7560_T._NOSIS_14-08-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "05. 14959 DJTCS 04-09-2025.pdf",
+    "cuenta": "14959",
+    "categoria": "05. DJTCS",
+    "origen": "C:\\Legajos\\Docupen\\05. 14959 DJTCS 04-09-2025.pdf",
+    "destino": "C:\\Legajos\\14959\\05. DJTCS\\05. 14959 DJTCS 04-09-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "07. 14959 DNI Ernestina Rodrigo 04-09-2025.pdf",
+    "cuenta": "14959",
+    "categoria": "07. DNI",
+    "origen": "C:\\Legajos\\Docupen\\07. 14959 DNI Ernestina Rodrigo 04-09-2025.pdf",
+    "destino": "C:\\Legajos\\14959\\07. DNI\\07. 14959 DNI Ernestina Rodrigo 04-09-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "08. 14959 CUIT SOCIEDAD 13-03-2025.pdf",
+    "cuenta": "14959",
+    "categoria": "08. CONSTANCIAS",
+    "origen": "C:\\Legajos\\Docupen\\08. 14959 CUIT SOCIEDAD 13-03-2025.pdf",
+    "destino": "C:\\Legajos\\14959\\08. CONSTANCIAS\\SOCIEDAD\\2025\\08. 14959 CUIT SOCIEDAD 13-03-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "08. 14959 REPET RL 13-03-2025.pdf",
+    "cuenta": "14959",
+    "categoria": "08. CONSTANCIAS",
+    "origen": "C:\\Legajos\\Docupen\\08. 14959 REPET RL 13-03-2025.pdf",
+    "destino": "C:\\Legajos\\14959\\08. CONSTANCIAS\\OTROS\\2025\\08. 14959 REPET RL 13-03-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "09. 14959  EE.CC. 31-12- 2024.pdf",
+    "cuenta": "14959",
+    "categoria": "09. ESTADOS CONTABLES",
+    "origen": "C:\\Legajos\\Docupen\\09. 14959  EE.CC. 31-12- 2024.pdf",
+    "destino": "C:\\Legajos\\14959\\09. ESTADOS CONTABLES\\09. 14959  EE.CC. 31-12- 2024.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:11:25",
+    "evento": "Archivo archivado",
+    "archivo": "12. 14959 NOSIS SOCIEDAD 13-03-2025.pdf",
+    "cuenta": "14959",
+    "categoria": "12. NOSIS",
+    "origen": "C:\\Legajos\\Docupen\\12. 14959 NOSIS SOCIEDAD 13-03-2025.pdf",
+    "destino": "C:\\Legajos\\14959\\12. NOSIS\\12. 14959 NOSIS SOCIEDAD 13-03-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:15:28",
+    "evento": "Archivo archivado",
+    "archivo": "01. 14959 CAC 13-03-2025.pdf",
+    "cuenta": "14959",
+    "categoria": "01. CAC",
+    "origen": "C:\\Legajos\\Docupen\\01. 14959 CAC 13-03-2025.pdf",
+    "destino": "C:\\Legajos\\14959\\01. CAC\\01. 14959 CAC 13-03-2025.pdf",
+    "error": null
+  },
+  {
+    "timestamp": "2025-09-04 18:16:32",
+    "evento": "Archivo archivado",
+    "archivo": "01. 14959 CAC 13-03-2025.pdf",
+    "cuenta": "14959",
+    "categoria": "01. CAC",
+    "origen": "C:\\Legajos\\Docupen\\01. 14959 CAC 13-03-2025.pdf",
+    "destino": "C:\\Legajos\\14959\\01. CAC\\01. 14959 CAC 13-03-2025.pdf",
+    "error": null
   }
 ]

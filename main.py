@@ -1,14 +1,26 @@
 import os
+import socket
+from datetime import datetime
+
+# --- Registro de seguridad ---
+ENTORNO_EJECUCION = {
+    "host": socket.gethostname(),
+    "ip_local": socket.gethostbyname(socket.gethostname()),
+    "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+    "script": "archivado_auditable.py"
+}
 
 # --- Importación de módulos ---
 from scripts.config_loader import cargar_configuracion
 from scripts.verificar_permisos_ruta import verificar_permisos
-from scripts.seguridad_v2 import (
-    verificar_entorno,
-    verificar_dependencias,
-    verificar_hash
+from scripts.seguridad_v2 import verificar_entorno, verificar_dependencias
+from archivado_auditable import (
+    procesar_archivos,
+    generar_reporte,
+    log_auditoria,
+    hashes_existentes,
+    detectar_inconsistencias
 )
-from scripts.archivado_automatico import procesar_archivos
 from scripts.generar_resumen_excel import generar_resumen
 from scripts.actualizar_resumen import actualizar_resumen
 from scripts.historial_archivo import actualizar_historial
@@ -68,18 +80,28 @@ def ejecutar_flujo_principal():
     verificar_entorno()
     verificar_dependencias()
 
-    if config.getboolean("SEGURIDAD", "validar_hash"):
-        verificar_hash("scripts/archivado_automatico.py")
-
     resumen_data = procesar_archivos()
 
-    actualizar_historial(resumen_data, "historial_archivo.xlsx")
+    actualizar_historial(resumen_data, "scripts/historial_archivo.json", entorno=ENTORNO_EJECUCION)
     manejar_resumen(resumen_data)
 
     if config.getboolean("EMAIL", "activar_alertas", fallback=False):
         enviar_alerta(resumen_path=RUTA_RESUMEN, destinatario=config.get("EMAIL", "destinatario"))
     else:
         print("📭 Alerta desactivada por configuración")
+
+    # --- Auditoría extendida ---
+    print("\n📄 Log de auditoría:")
+    for evento in log_auditoria:
+        print(f"{evento['fecha']} | {evento['estado']} | {evento['archivo']} → {evento['cuenta']}/{evento['categoria']}/{evento['subrol']}")
+
+    inconsistencias = detectar_inconsistencias()
+    if inconsistencias:
+        print("\n⚠️ Inconsistencias detectadas:")
+        for i in inconsistencias:
+            print(f"🔍 Hash: {i['hash']} | Ruta esperada: {i['ruta_esperada']} | Estado: {i['estado']}")
+    else:
+        print("\n✅ No se detectaron inconsistencias.")
 
 # --- Punto de entrada ---
 if __name__ == "__main__":
