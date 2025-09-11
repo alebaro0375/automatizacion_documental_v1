@@ -9,7 +9,7 @@ from scripts.hash_checker import (
 )
 
 # --- Configuración ---
-CARPETA_ORIGEN = Path("C:/Legajos/Docupen")
+CARPETA_ORIGEN = Path("C:\Users\ALEJANDRA\Desktop\LEGAJOS\Docupen")
 BASE_PATH = Path("C:/Legajos")
 EXCEL_CUENTAS = Path("config/cuentas.xlsx")
 
