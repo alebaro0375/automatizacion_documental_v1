@@ -14,7 +14,7 @@ ENTORNO_EJECUCION = {
 from scripts.config_loader import cargar_configuracion
 from scripts.verificar_permisos_ruta import verificar_permisos
 from scripts.seguridad_v2 import verificar_entorno, verificar_dependencias
-from archivado_auditable import (
+from scripts.archivado_auditable import (
     procesar_archivos,
     generar_reporte,
     log_auditoria,
