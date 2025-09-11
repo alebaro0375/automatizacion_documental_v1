@@ -20,8 +20,8 @@ import hashlib
 from datetime import datetime
 
 # 📁 Configuración
-RUTA_ENTRADA = "C:/Legajos/Docupen/"
-RUTA_SALIDA = "C:/Legajos/"
+RUTA_ENTRADA = "C:/Users/ALEJANDRA/Desktop/Legajos/Docupen/"
+RUTA_SALIDA = "C:/Users/ALEJANDRA/Desktop/Legajos/"
 hashes_existentes = {}  # {hash: {"ruta": ..., "tamano": ..., "modificado": ...}}
 log_auditoria = []
 
