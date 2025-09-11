@@ -19,15 +19,16 @@
   ],
   "fisica": [
     "01. CAC",
-    "02. DNI",
-    "03. CONSTANCIAS",
-    "04. NOSIS",
-    "05. DOCUMENTACION",
-    "06. PERFIL-OI",
-    "07. MATRIZ DE RIESGO",
-    "08. PERFIL DEL INVERSOR",
-    "09. OFICIOS JUDICIALES",
-    "10. OTROS", 
+    "02. ANEXOS",    
+    "03. DNI",   
+    "04. CONSTANCIAS",    
+    "05. NOSIS",   
+    "06. DOCUMENTACION",    
+    "07. PERFIL-OI",   
+    "08. MATRIZ DE RIESGO",   
+    "09. PERFIL DEL INVERSOR",  
+    "10. OFICIOS JUDICIALES",
+    "11. OTROS", 
     "99. DESCONOCIDO"
 
   ]
