@@ -10,7 +10,7 @@ sys.path.append(str(ROOT_DIR))
 
 from estructura_subcarpetas import cargar_estructura  # Import corregido
 
-CARPETA_ORIGEN = Path("C:/Legajos/Docupen")
+CARPETA_ORIGEN = Path("C:\Users\ALEJANDRA\Desktop\LEGAJOS\Docupen")
 
 def extraer_datos_desde_nombre(nombre_archivo):
     nombre_sin_ext = os.path.splitext(nombre_archivo)[0]
